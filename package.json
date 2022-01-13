@@ -1,0 +1,33 @@
+{
+  "name": "chatter",
+  "version": "1.0.0",
+  "description": "Chat program in Node.js + Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TURR-21-22/Chatter.git"
+  },
+  "author": "Smokey2k",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TURR-21-22/Chatter/issues"
+  },
+  "homepage": "https://github.com/TURR-21-22/Chatter#readme",
+  "dependencies": {
+    "dotenv": "^11.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "moment": "^2.29.1",
+    "mysql": "^2.18.1",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
