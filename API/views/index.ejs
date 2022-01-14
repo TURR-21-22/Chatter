@@ -1,7 +1,9 @@
 <%- include('header') %>
-<form action="/chat" method="POST" class="loginform">
-    <label for="nickname">Nickname</label>
-    <input type="text" name="nickname" class="form-control" placeholder="Your nickname">
+<form action="/auth" method="POST" class="loginform">
+    <label for="username">User name</label>
+    <input type="text" name="username" class="form-control" placeholder="Your user name">
+    <label for="password">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" required>
     <label for="room">Room name:</label>
     <select name="room" class="form-control">
         <option value="Main">Main</option>
@@ -12,5 +14,7 @@
         <option value="Web">Web</option>
     </select><br>
     <button class="btn btn-primary">Join to Room</button>
+    <a class="reg-link" href="/register">Regisztráció</a>
 </form>
+<p class="loginError"><%= loginError[0] %><br><%= loginError[1] %></p>
 <%- include('footer') %>

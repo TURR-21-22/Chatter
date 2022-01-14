@@ -20,6 +20,7 @@ function getRoomUsers(room){
 // users leave the room
 function userLeave(id) {
     const index = users.findIndex(user => user.id === id);
+    global.loggedUsers = loggedUsers.filter(e => e !== users[index].name);
     if (index !== -1) {
         return users.splice(index, 1)[0];    
     }

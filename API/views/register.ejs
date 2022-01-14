@@ -1,0 +1,11 @@
+<%- include('header') %>
+<div class="register-container">
+<form action="/register" method="post">
+    <input type="text" name="name" placeholder="Felhasználónév" required>
+    <input type="password" name="pwd1" placeholder="Jelszó" required>
+    <input type="password" name="pwd2" placeholder="Jelszó megerősítése" required>
+    <input type="submit" value="Regisztrál">
+</form>
+<a href="/">Vissza a bejelentkezési oldalra...</a>
+</div>
+<%- include('footer') %>

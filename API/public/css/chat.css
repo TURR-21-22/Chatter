@@ -56,11 +56,20 @@ main {
 .loginform {
     margin-top: 2ch;
     min-width: 22ch;
-    width: 38ch;
+    width: 32ch;
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
-    
+}
+
+.loginError {
+    margin-top: 2ch;
+    width: fit-content;
+    height: fit-content;
+    word-wrap: break-word;
+    font-weight: bold;
+    font-size: 3ch;
+    text-align: center;
 }
 
 label,h6 {
@@ -219,4 +228,20 @@ footer {
     padding: 1ch;
     letter-spacing: 3px;
     width: 100%;
+}
+
+.register-container {
+    display: flex;
+    flex-flow: column;
+    margin: 2ch;
+}
+
+.register-container > form {
+    display: flex;
+    flex-flow: column;
+    height: fit-content;
+}
+
+.register-container > form > input {
+    width: 32ch;
 }
