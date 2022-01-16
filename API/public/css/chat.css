@@ -197,6 +197,32 @@ label,h6 {
     flex-flow: row;
 }
 
+.console {
+    flex: auto;
+    display: flex;
+    flex-flow: column;
+}
+.console > label {
+    font-weight: bold;
+    min-width: fit-content;
+    width: fit-content;
+    background-color: darkblue;
+    border-radius: 0.5ch 0.5ch 0 0;
+    padding: 1ch;
+    color: white;
+}
+
+.console > input {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.inputgroup > button {
+    background-color: green;
+
+}
+
+
 p {
     padding: 0;
     margin: 0;
@@ -244,4 +270,49 @@ footer {
 
 .register-container > form > input {
     width: 32ch;
+    margin: 1ch;
+    padding: 1ch;;
+}
+
+.error-message {
+    display: flex;
+    flex-flow: column;
+    margin: 2ch;
+    text-align: center;
+    background-color: rgb(230, 16, 58);
+    border-radius: 0.5ch;
+    font-size: 3ch;
+    font-weight: bold;
+    color: white;
+}
+
+.error-message > p{
+    padding: 1ch;
+}
+
+.room-menu-container {
+    align-self: flex-start;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+}
+.room-menu {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+.room-menu > li {
+    margin: 1ch;
+    border-radius: 0.5ch;
+}
+
+.room-menu > li > button {
+    margin: 0;
+    padding: 0.5ch;
+    padding-left: 1ch;
+    padding-right: 1ch;
+    border-radius: 0.5ch;
 }
