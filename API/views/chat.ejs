@@ -1,18 +1,32 @@
 <%- include('header') %>
 
+<div class="room-menu-container">
+    <ul class="room-menu">
+        <li><button class="switchRoom" data-room="Main">Main</button></li>
+        <li><button class="switchRoom" data-room="Frontend">Frontend</button></li>
+        <li><button class="switchRoom" data-room="Backend">Backend</button></li>
+        <li><button class="switchRoom" data-room="Desktop">Desktop</button></li>
+        <li><button class="switchRoom" data-room="Mobile">Mobile</button></li>
+        <li><button class="switchRoom" data-room="Web">Web</button></li>
+    </ul>
+</div>
+
 <div class="chat-window">
     <aside class="chat-window-left">
         <div id="roomname"></div>
         <div class="userswindow">
             <ul id="userslist"></ul>
-            <a href="/" class="btn btn-primary">Logout</a>
+            <a href="/" id="logout" class="btn btn-primary">Logout</a>
         </div>
     </aside>
     <section class="chat-window-right">
         <div class="chatmessages"></div>
         <div id="feedback"></div>
         <div class="inputgroup">
-            <input type="text" name="msgTxt" placeholder="Type a message.." class="form-control">
+            <div class="console">
+                <label id="console_label" for="msgTxt">./room | user | id ></label>
+                <input type="text" name="msgTxt" placeholder="Type a message.." class="form-control">
+            </div>
             <button class="btn btn-success" id="sendBtn">Send</button>
         </div>
     </section>
