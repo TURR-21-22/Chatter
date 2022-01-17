@@ -11,7 +11,6 @@ const server = express()
 const router = require('./API/routes/router');
 
 const io = socketio(server);
-
 const db = require('./API/models/dbModel');
 
 app.set('views', './API/views/');
@@ -39,68 +38,71 @@ const {
 
 app.use('/', router);
 
-const oldroom = '';
+var history = {
+    main: [],
+    frontend: [],
+    backend: [],
+    desktop: [],
+    mobile: [],
+    web: []
+};
 
 io.on('connection',(socket)=>{
-    // client connected to room
+
     socket.on('JoinToRoom', ()=>{
         const user = joinUser(socket.id, session.username, session.roomname );
-       // join the room
         socket.join(user.room);
-        
-        // update room info
-        //io.to(user.room).emit('updateRoom',session.roomname, getRoomUsers(session.roomname), );
-        
-        socket.emit('updateRoom',user.room, getRoomUsers(user.room),user.name,user.id);
-        //socket.broadcast.to(socket.room).emit('updateRoom2', getRoomUsers(socket.room));
+        socket.emit('updateRoom',user.room, getRoomUsers(user.room),user.name);
+        const clients = io.sockets.sockets;
+        clients.forEach(e => {
+            var client = getCurrentUser(e.id);
+            if (user.id != client.id ) {
+                io.to(client.room).emit('updateRoom2',client.room, getRoomUsers(client.room));
+            }
+        });
+        roomHistory(user.room);
+ });
 
-        //io.to(user.id).emit('updateRoom',user.room, getRoomUsers(user.room) );
-        // wellcome current user
-    
-
-        //socket.emit('message',formatMessage('System', `${user.name}, wellcome in the ${user.room} room !`) );
-        // broadcast another user
-        //socket.broadcast.to(user.room).emit('message', formatMessage('System',`User ${user.name} joined to the room !`) );
-    });
-    // listen for messages
     socket.on('message', (msg)=>{
         const user = getCurrentUser(socket.id);
-        // broadcast message to another users
         io.to(user.room).emit('message',formatMessage(user.name, msg));
-        //socket.broadcast.to(user.room).emit('message',formatMessage(user.name, msg));
         let text = formatMessage(user.name, msg);
         db.query(`INSERT INTO chat_room_${user.room} VALUES(null, '${text.username}','${text.text}',CURDATE() )`);
-        //db.query(`INSERT INTO chat_room_${user.room} VALUES(null, '${formatMessage(user.name, msg)}'`);
     });
 
     //switching room
     socket.on('switch',(room)=>{
-        socket.leave(socket.room);
+        socket.leave(session.roomname);
         const user = makeUser(socket.id, session.username, room );
         socket.join(room);
-        socket.emit('updateRoom',user.room, getRoomUsers(user.room),user.name,user.id);
-        socket.broadcast.to(socket.room).emit('updateRoom',socket.room, getRoomUsers(socket.room),socket.name,socket.id);
-        //socket.broadcast.to(socket.room).emit('updateRoom2',socket.room, getRoomUsers(socket.room));
-        socket.room = room;
-        //const rooms = ['Main','Frontend','Backend','Desktop','Mobile','Web'];
-        //socket.emit('updaterooms', rooms);
-        
-        //io.to(user.room).emit('updateRoom',user.room, getRoomUsers(user.room) );
+        io.to(user.room).emit('updateRoom',user.room, getRoomUsers(user.room),user.name);
+        const clients = io.sockets.sockets;
+        clients.forEach(e => {
+            var client = getCurrentUser(e.id);
+            socket.emit('updateRoom2',client.room, getRoomUsers(client.room));
+        });
+        roomHistory(user.room);
     });
 
-
-    // when anybody typing....
     socket.on('typing',(id)=>{
         const user = getCurrentUser(id);
         socket.broadcast.to(user.room).emit('typing',`${user.name} is typing...`);
     });
 
-    // client leave the room
     socket.on('disconnect',()=>{
         const user = userLeave(socket.id);
-        // broadcast to another users
         io.to(user.room).emit('message',formatMessage('System',`${user.name} has left the room.`));
-        // update room indoformation to other users
-        io.to(user.room).emit('updateRoom',user.room, getRoomUsers(user.room),user.name,user.id);
+        io.to(user.room).emit('updateRoom',user.room, getRoomUsers(user.room),user.name);
     });
 });
+
+function roomHistory(room) {
+    history[room] = [];
+    db.query(`SELECT * FROM chat_room_${room}`)
+    .on('result', (data)=>{
+        history[room].push(data);
+    })
+    .on('end', ()=> {
+        io.to(room).emit('history',history[room]);
+    })
+}

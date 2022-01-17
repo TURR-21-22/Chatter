@@ -155,7 +155,6 @@ label,h6 {
     text-align: justify;
     flex: auto;
     overflow: auto;
-
 }
 
 .message {
@@ -201,8 +200,17 @@ label,h6 {
     flex: auto;
     display: flex;
     flex-flow: column;
+    margin-top: 1ch;
 }
-.console > label {
+
+.consoleTop {
+    flex: auto;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.consoleTop > label {
     font-weight: bold;
     min-width: fit-content;
     width: fit-content;
@@ -218,10 +226,10 @@ label,h6 {
 }
 
 .inputgroup > button {
+    height: fit-content;
     background-color: green;
-
+    align-self: flex-end;
 }
-
 
 p {
     padding: 0;

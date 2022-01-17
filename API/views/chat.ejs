@@ -2,12 +2,12 @@
 
 <div class="room-menu-container">
     <ul class="room-menu">
-        <li><button class="switchRoom" data-room="Main">Main</button></li>
-        <li><button class="switchRoom" data-room="Frontend">Frontend</button></li>
-        <li><button class="switchRoom" data-room="Backend">Backend</button></li>
-        <li><button class="switchRoom" data-room="Desktop">Desktop</button></li>
-        <li><button class="switchRoom" data-room="Mobile">Mobile</button></li>
-        <li><button class="switchRoom" data-room="Web">Web</button></li>
+        <li><button class="switchRoom" data-room="main">Main</button></li>
+        <li><button class="switchRoom" data-room="frontend">Frontend</button></li>
+        <li><button class="switchRoom" data-room="backend">Backend</button></li>
+        <li><button class="switchRoom" data-room="desktop">Desktop</button></li>
+        <li><button class="switchRoom" data-room="mobile">Mobile</button></li>
+        <li><button class="switchRoom" data-room="web">Web</button></li>
     </ul>
 </div>
 
@@ -21,10 +21,12 @@
     </aside>
     <section class="chat-window-right">
         <div class="chatmessages"></div>
-        <div id="feedback"></div>
         <div class="inputgroup">
             <div class="console">
-                <label id="console_label" for="msgTxt">./room | user | id ></label>
+                <div class="consoleTop">
+                    <label id="console_label" for="msgTxt">./room | user | id ></label>
+                    <div id="feedback"></div>
+                </div>
                 <input type="text" name="msgTxt" placeholder="Type a message.." class="form-control">
             </div>
             <button class="btn btn-success" id="sendBtn">Send</button>

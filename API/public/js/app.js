@@ -41,6 +41,7 @@ msgTxt.addEventListener("keypress", ()=> {
     socket.emit('typing',socket.id);
 });
 
+
 // ----------- ON
 
 
@@ -54,27 +55,46 @@ socket.on('switch', (room,users,user,id)=>{
 */
 
 // update room data
-socket.on('updateRoom', (room,users,user,id)=>{
+
+socket.on('updateRoom', (room,users,user)=>{
     outputRoomName(room);
     outputUserList(users);
-    con(room,user,id);
+    con(room,user);
 });
 
 
-socket.on('updateRoom2', (users)=>{
+socket.on('updateRoom2', (room,users)=>{
+    outputRoomName(room);
     outputUserList(users);
 });
-
-socket.on('updaterooms', (rooms)=>{
-});
-    
-
 
 
 //receive a message
 socket.on('message', (msg)=>{
     outputMessage(msg);
 })
+
+
+socket.on('history', (data)=>{
+    
+    const div = document.createElement('div');
+    div.classList.add('history');
+    for (var i = 0; i < data.length; i++){
+        console.log(data[i].text)
+        const p = document.createElement('p');
+        p.classList.add('uname');
+        p.innerText = data[i].username;
+        p.innerHTML += `<span>${data[i].date}</span>`;
+        div.appendChild(p);
+        const p2 = document.createElement('p');
+        p2.innerText = data[i].text;
+        div.appendChild(p2);
+    }
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight - chatMessages.clientHeight;
+
+})
+
 
 // listen for typing
 socket.on('typing', (msg)=>{
@@ -104,7 +124,7 @@ function sendMessage() {
 }
 
 function con(room,user,id) {
-    console_label.innerHTML = `${room} - ${user} - ${id} >`;
+    console_label.innerHTML = `./${room}/${user} >`;
 }
 
 // Add roomname to DOM
@@ -115,12 +135,9 @@ function outputRoomName(room) {
 // Add users to DOM
 function outputUserList(users) {
     userslist.innerHTML = '';
-    //users = ['1','2','3','4'];
-
-    users.forEach(user => {
+     users.forEach(user => {
         const li = document.createElement('li');
         li.innerHTML = user.name;
-        //li.innerHTML = user;
         userslist.appendChild(li); 
     });
 }
@@ -138,4 +155,5 @@ function outputMessage(message) {
     p2.innerText = message.text;
     div.appendChild(p2);
     chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight - chatMessages.clientHeight;
 }
