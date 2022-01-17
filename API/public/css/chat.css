@@ -157,6 +157,35 @@ label,h6 {
     overflow: auto;
 }
 
+
+.history {
+    background-color: rgb(93, 93, 93);
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    margin-left: 1.5ch;
+    margin-bottom: 1ch;
+    padding: 1ch;
+    height: fit-content;
+    word-wrap: break-word;
+    color: white;
+    font-weight: bold;
+}
+
+.history::before {
+    content: '';
+    position: relative;
+    display: block;
+    width: 1ch;
+    z-index: 1;
+    border-style: solid;
+    border-color: transparent rgb(93, 93, 93) transparent transparent;
+    border-width: 1ch 1.5ch 1ch 0;
+    top: 2.5ch;
+    left: -2.5ch;
+    margin-top: -2ch;
+}
+
 .message {
     background-color: silver;
     border-radius: 10px;
@@ -167,6 +196,8 @@ label,h6 {
     padding: 1ch;
     height: fit-content;
     word-wrap: break-word;
+    color: white;
+    font-weight: bold;
 }
 
 .message::before {

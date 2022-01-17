@@ -76,11 +76,9 @@ socket.on('message', (msg)=>{
 
 
 socket.on('history', (data)=>{
-    
     const div = document.createElement('div');
     div.classList.add('history');
     for (var i = 0; i < data.length; i++){
-        console.log(data[i].text)
         const p = document.createElement('p');
         p.classList.add('uname');
         p.innerText = data[i].username;
@@ -92,7 +90,6 @@ socket.on('history', (data)=>{
     }
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight - chatMessages.clientHeight;
-
 })
 
 
